@@ -59,9 +59,9 @@ button:disabled {
 }
 
 .app-shell {
-  width: min(1180px, 100%);
+  width: min(520px, 100%);
   margin: 0 auto;
-  padding: 14px;
+  padding: 12px;
 }
 
 .loading-screen {
@@ -74,12 +74,7 @@ button:disabled {
 }
 
 .status-bar {
-  position: sticky;
-  top: 0;
-  z-index: 20;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+  display: grid;
   gap: 16px;
   padding: 14px;
   border: 1px solid rgba(222, 214, 196, 0.85);
@@ -115,6 +110,11 @@ button:disabled {
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
+}
+
+.status-actions {
+  display: grid;
+  grid-template-columns: 1fr;
 }
 
 .toggle,
@@ -190,7 +190,7 @@ button:disabled {
 }
 
 .hero-panel {
-  min-height: 280px;
+  min-height: 240px;
   display: grid;
   align-content: end;
   gap: 16px;
@@ -207,8 +207,8 @@ button:disabled {
 }
 
 .hero-panel h2 {
-  max-width: 850px;
-  font-size: clamp(2rem, 8vw, 4.2rem);
+  max-width: 100%;
+  font-size: clamp(2rem, 12vw, 3.35rem);
   line-height: 1;
 }
 
@@ -221,7 +221,7 @@ button:disabled {
 
 .summary-grid {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: 1fr;
   gap: 12px;
 }
 
@@ -305,15 +305,13 @@ button:disabled {
 }
 
 .page-header {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
+  display: grid;
   gap: 16px;
   padding: 18px;
 }
 
 .page-header h2 {
-  font-size: clamp(1.6rem, 6vw, 2.5rem);
+  font-size: clamp(1.45rem, 8vw, 2.25rem);
 }
 
 .page-header p {
@@ -321,6 +319,30 @@ button:disabled {
   margin: 8px 0 0;
   color: var(--muted);
   line-height: 1.5;
+}
+
+.page-heading {
+  display: grid;
+  gap: 14px;
+}
+
+.back-button {
+  justify-self: start;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #fffaf0;
+  color: var(--green-dark);
+  padding: 9px 13px;
+  font-weight: 900;
+}
+
+.back-button span {
+  font-size: 1.7rem;
+  line-height: 0.8;
 }
 
 .primary {
@@ -525,11 +547,6 @@ button:disabled {
 }
 
 @media (max-width: 760px) {
-  .status-bar,
-  .page-header {
-    display: grid;
-  }
-
   .status-actions,
   .button-row {
     width: 100%;
@@ -548,23 +565,5 @@ button:disabled {
 @media (min-width: 720px) {
   .app-shell {
     padding: 18px;
-  }
-
-  .summary-grid,
-  .nav-grid,
-  .form-grid,
-  .two-column {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
-  .record-card {
-    grid-template-columns: 1fr auto;
-    align-items: center;
-  }
-}
-
-@media (min-width: 1040px) {
-  .nav-grid {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 }

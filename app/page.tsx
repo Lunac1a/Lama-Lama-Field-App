@@ -528,11 +528,11 @@ function ModulePage({ module, records, onNavigate }: { module: RecordType; recor
         eyebrow="Data collection module"
         title={config.title}
         description={config.description}
+        onBack={() => onNavigate({ name: "home" })}
         actions={
           <>
             <button className="primary" onClick={() => onNavigate({ name: "new", module })} type="button">New</button>
             <button className="secondary" onClick={() => onNavigate({ name: "manage", module })} type="button">Manage</button>
-            <button className="secondary" onClick={() => onNavigate({ name: "home" })} type="button">Back to Home</button>
           </>
         }
       />
@@ -620,6 +620,7 @@ function RecordForm({
         eyebrow={existing ? "Edit local record" : "New local record"}
         title={existing ? `Edit ${config.shortTitle} Record` : `New ${config.shortTitle} Record`}
         description="Records are saved in this browser and marked Pending until sync."
+        onBack={onCancel}
       />
       <form className="field-form" onSubmit={submit}>
         <div className="form-grid">
@@ -684,7 +685,12 @@ function ManageRecords({
 
   return (
     <section className="content-page">
-      <PageHeader eyebrow="Manage records" title={`Manage ${config.shortTitle}`} description="Select local records for batch deletion." />
+      <PageHeader
+        eyebrow="Manage records"
+        title={`Manage ${config.shortTitle}`}
+        description="Select local records for batch deletion."
+        onBack={onCancel}
+      />
       <div className="manage-list">
         {records.map((record) => (
           <label className="manage-row" key={record.id}>
@@ -767,7 +773,7 @@ function ProfilePage({
         eyebrow="Ranger profile"
         title="Ranger Profile & Work Log"
         description="Track ranger details, daily work, and local record totals."
-        actions={<button className="secondary" onClick={() => onNavigate({ name: "home" })} type="button">Back to Home</button>}
+        onBack={() => onNavigate({ name: "home" })}
       />
       <form className="panel" onSubmit={(event) => { event.preventDefault(); onProfileSave(localProfile); }}>
         <h3>Profile</h3>
@@ -840,7 +846,7 @@ function SyncPage({
         eyebrow="Offline-first sync"
         title="Sync Page"
         description="Simulate upload behavior while keeping records safely stored in this browser."
-        actions={<button className="secondary" onClick={() => onNavigate({ name: "home" })} type="button">Back to Home</button>}
+        onBack={() => onNavigate({ name: "home" })}
       />
       <div className="sync-panel">
         <StatusPill label="Network status" value={networkOnline ? "Online" : "Offline"} tone={networkOnline ? "good" : "warn"} />
@@ -863,19 +869,29 @@ function PageHeader({
   eyebrow,
   title,
   description,
+  onBack,
   actions,
 }: {
   eyebrow: string;
   title: string;
   description: string;
+  onBack?: () => void;
   actions?: React.ReactNode;
 }) {
   return (
     <div className="page-header">
-      <div>
-        <p className="eyebrow">{eyebrow}</p>
-        <h2>{title}</h2>
-        <p>{description}</p>
+      <div className="page-heading">
+        {onBack && (
+          <button className="back-button" onClick={onBack} type="button" aria-label="Go back">
+            <span aria-hidden="true">‹</span>
+            Back
+          </button>
+        )}
+        <div>
+          <p className="eyebrow">{eyebrow}</p>
+          <h2>{title}</h2>
+          <p>{description}</p>
+        </div>
       </div>
       {actions && <div className="button-row">{actions}</div>}
     </div>
